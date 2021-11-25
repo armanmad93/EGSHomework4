@@ -98,14 +98,20 @@ public final class CustomString {
             return false;
         }
 
-        for (Character character : charContainer) {
+        //if subClass dont have any symbols
+        if (input.length() == 0) {
+            return false;
+        }
 
-            if (character == subStringArray[index]) {
+        for (int i = 0; i < charContainer.size(); i++) {
+
+            if (charContainer.get(i) == subStringArray[index]) {
                 index++;
                 if (index == subStringArray.length) {
                     return true;
                 }
             } else {
+                i = i - index;
                 index = 0;
             }
         }
