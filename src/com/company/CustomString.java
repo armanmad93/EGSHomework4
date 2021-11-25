@@ -60,9 +60,10 @@ public final class CustomString {
         boolean term = true;
 
         //if oldChar dont have in our sentence then return -1
-        for (int i = 0; i < charContainer.size(); i++) {
-            if (charContainer.get(i) == oldChar) {
+        for (Character value : charContainer) {
+            if (value == oldChar) {
                 term = false;
+                break;
             }
         }
         if (term) {
@@ -71,8 +72,8 @@ public final class CustomString {
 
         //if old char and new char is equals then return this
         if (oldChar == newChar) {
-            for (int i = 0; i < charContainer.size(); i++) {
-                word.append(charContainer.get(i));
+            for (Character character : charContainer) {
+                word.append(character);
             }
             return word.toString();
         }
@@ -97,9 +98,9 @@ public final class CustomString {
             return false;
         }
 
-        for (int i = 0; i < charContainer.size(); i++) {
+        for (Character character : charContainer) {
 
-            if (charContainer.get(i) == subStringArray[index]) {
+            if (character == subStringArray[index]) {
                 index++;
                 if (index == subStringArray.length) {
                     return true;
@@ -109,6 +110,61 @@ public final class CustomString {
             }
         }
         return false;
+    }
+
+    public int indexOf(char symbol) {
+        for (int i = 0; i < charContainer.size(); i++) {
+            if (charContainer.get(i) == symbol) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean isEmpty() {
+        return charContainer.size() == 0;
+    }
+
+    public Character CharAt(int index) {
+
+        for (int i = 0; i < charContainer.size(); i++) {
+            if (i == index) {
+                return charContainer.get(i);
+            }
+        }
+        return null;
+    }
+
+    public String valueOf(long value) {
+
+        long[] ints = new long[getLengthFromPrimitiveNumber(value)];
+        StringBuilder stringBuilder = new StringBuilder();
+
+        //all element add to ints array and start to last index
+        for (int i = ints.length - 1; i >= 0; i--) {
+            ints[i] = value % 10;
+            value /= 10;
+        }
+
+        //all elements array add to StringBuilder
+        for (long anInt : ints) {
+            stringBuilder.append(anInt);
+        }
+
+        return stringBuilder.toString();
+    }
+
+    // get length for primitive number
+    private int getLengthFromPrimitiveNumber(long value) {
+
+        int length = 0;
+
+        while (value != 0) {
+            length++;
+            value /= 10;
+        }
+
+        return length;
     }
 
     public ArrayList<Character> getCharContainer() {

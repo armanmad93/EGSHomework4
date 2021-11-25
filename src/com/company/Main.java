@@ -10,7 +10,7 @@ public class Main {
 
 	    CustomString customString = new CustomString("Arman");
 
-	    //test length
+        //test length
         System.out.println(customString.length());
 
         //test subString method
@@ -28,5 +28,18 @@ public class Main {
         //test contains method
         System.out.println(customString.contains("ArM"));
         System.out.println(customString.contains("arm"));
+
+        //chack isEmpty method
+        System.out.println(customString.isEmpty());
+
+        //chack indexOf method
+        System.out.println(customString.indexOf('a'));
+
+        //chack valueOf method
+        System.out.println(customString.valueOf(151554));
+
+        //chack charAt method
+        System.out.println(customString.CharAt(3));
+        System.out.println(customString.CharAt(100));
     }
 }
