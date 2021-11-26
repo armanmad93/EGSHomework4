@@ -160,6 +160,27 @@ public final class CustomString {
         return stringBuilder.toString();
     }
 
+    public boolean equalsIgnoreCase(String anotherString) {
+
+        if (anotherString == null || charContainer.size() != anotherString.length()) {
+            return false;
+        }
+
+        char[] anotherStringElement = anotherString.toCharArray();
+
+
+        for (int i = 0; i < charContainer.size(); i++) {
+            if (charContainer.get(i) != anotherStringElement[i]) {
+                if ((charContainer.get(i) + 32) != anotherStringElement[i]) {
+                    if (charContainer.get(i) != (anotherStringElement[i] + 32)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     // get length for primitive number
     private int getLengthFromPrimitiveNumber(long value) {
 

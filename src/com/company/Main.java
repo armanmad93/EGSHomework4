@@ -11,6 +11,14 @@ public class Main {
         CustomString customString = new CustomString("aaabaabcaabd");
         CustomString customString1 = new CustomString("Arman");
 
+        //chack equalsIgnoreCase
+        System.out.println(customString1.equalsIgnoreCase("Arman"));
+        System.out.println(customString1.equalsIgnoreCase("ArmanA"));
+        System.out.println(customString1.equalsIgnoreCase("arman"));
+        System.out.println(customString1.equalsIgnoreCase("ArmaN"));
+        System.out.println(customString1.equalsIgnoreCase("ArMAn"));
+        System.out.println();
+
         //chack contains
         System.out.println(customString.contains("aaaa"));
         System.out.println(customString.contains("abd"));
@@ -54,6 +62,8 @@ public class Main {
         //chack charAt method
         System.out.println(customString1.CharAt(3));
         System.out.println(customString1.CharAt(100));
-        
+
+
+
     }
 }
