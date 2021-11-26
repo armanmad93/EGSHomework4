@@ -64,6 +64,5 @@ public class Main {
         System.out.println(customString1.CharAt(100));
 
 
-
     }
 }

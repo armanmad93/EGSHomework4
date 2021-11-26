@@ -90,6 +90,10 @@ public final class CustomString {
 
     public boolean contains(String input) {
 
+        if (input == null) {
+            return false;
+        }
+
         int index = 0;
         char[] subStringArray = input.toCharArray();
 
@@ -99,9 +103,7 @@ public final class CustomString {
         }
 
         //if subClass dont have any symbols
-        if (input.length() == 0) {
-            return false;
-        }
+
 
         for (int i = 0; i < charContainer.size(); i++) {
 
