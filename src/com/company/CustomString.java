@@ -8,21 +8,25 @@ import java.util.ArrayList;
 
 public final class CustomString {
 
-    private final ArrayList<Character> charContainer = new ArrayList<>();
+    private final char[] charContainer;
 
-    public CustomString(String string) {
-        for (int i = 0; i < string.length(); i++) {
-            this.charContainer.add(string.charAt(i));
+    public CustomString(char[] chars) {
+        if (chars.length == 0) {
+            charContainer = null;
+        } else {
+            charContainer = new char[chars.length];
+            System.arraycopy(chars, 0, charContainer, 0, chars.length);
         }
     }
 
     public int length() {
-        return charContainer.size();
+        return charContainer.length;
     }
 
-    public String subString(int start, int end) {
+    public char[] subString(int start, int end) {
 
-        StringBuilder subString = new StringBuilder();
+        char[] subChar = new char[end - start];
+        int iteration = 0;
 
         /*
           if first index < 0 or
@@ -31,35 +35,38 @@ public final class CustomString {
           last index more then ArrayList size
           then return -1 (wrong entry)
          */
-        if (start < 0 || end < 0 || end <= start || end > charContainer.size()) {
-            return "-1";
+        if (start < 0 || end < 0 || end <= start || end > charContainer.length) {
+            return new char[]{'0'};
         }
 
         for (int i = start; i < end; i++) {
-            subString.append(charContainer.get(i));
+            subChar[iteration] = charContainer[i];
+            iteration++;
+
         }
 
-        return subString.toString();
+        return subChar;
     }
 
     public int compareTo(String input) {
 
-        int minimumLength = Math.min(charContainer.size(), input.length());
+        int minimumLength = Math.min(charContainer.length, input.length());
 
         for (int i = 0; i < minimumLength; i++) {
-            if (charContainer.get(i) != input.charAt(i)) {
-                return charContainer.get(i) - input.charAt(i);
+            if (charContainer[i] != input.charAt(i)) {
+                return charContainer[i] - input.charAt(i);
             }
         }
-        return charContainer.size() - input.length();
+        return charContainer.length - input.length();
     }
 
-    public String replace(char oldChar, char newChar) {
+    public char[] replace(char oldChar, char newChar) {
 
-        StringBuilder word = new StringBuilder();
+//        StringBuilder word = new StringBuilder();
+        char[] newWord = new char[charContainer.length];
         boolean term = true;
 
-        //if oldChar dont have in our sentence then return -1
+        //if oldChar dont have in our sentence then return 0
         for (Character value : charContainer) {
             if (value == oldChar) {
                 term = false;
@@ -67,25 +74,22 @@ public final class CustomString {
             }
         }
         if (term) {
-            return "-1";
+            return new char[]{'0'};
         }
 
         //if old char and new char is equals then return this
         if (oldChar == newChar) {
-            for (Character character : charContainer) {
-                word.append(character);
-            }
-            return word.toString();
+            return charContainer;
         }
 
-        for (int i = 0; i < charContainer.size(); i++) {
-            if (charContainer.get(i) == oldChar) {
-                charContainer.set(i, newChar);
+        for (int i = 0; i < charContainer.length; i++) {
+            if (charContainer[i] == oldChar) {
+                charContainer[i] = newChar;
             }
-            word.append(charContainer.get(i));
+            newWord[i] = charContainer[i];
         }
 
-        return word.toString();
+        return newWord;
     }
 
     public boolean contains(String input) {
@@ -98,16 +102,16 @@ public final class CustomString {
         char[] subStringArray = input.toCharArray();
 
         //if subString have more length then our string return false
-        if (charContainer.size() < input.length()) {
+        if (charContainer.length < input.length()) {
             return false;
         }
 
         //if subClass dont have any symbols
 
 
-        for (int i = 0; i < charContainer.size(); i++) {
+        for (int i = 0; i < charContainer.length; i++) {
 
-            if (charContainer.get(i) == subStringArray[index]) {
+            if (charContainer[i] == subStringArray[index]) {
                 index++;
                 if (index == subStringArray.length) {
                     return true;
@@ -121,8 +125,8 @@ public final class CustomString {
     }
 
     public int indexOf(char symbol) {
-        for (int i = 0; i < charContainer.size(); i++) {
-            if (charContainer.get(i) == symbol) {
+        for (int i = 0; i < charContainer.length; i++) {
+            if (charContainer[i] == symbol) {
                 return i;
             }
         }
@@ -130,20 +134,20 @@ public final class CustomString {
     }
 
     public boolean isEmpty() {
-        return charContainer.size() == 0;
+        return charContainer.length == 0;
     }
 
     public Character CharAt(int index) {
 
-        for (int i = 0; i < charContainer.size(); i++) {
+        for (int i = 0; i < charContainer.length; i++) {
             if (i == index) {
-                return charContainer.get(i);
+                return charContainer[i];
             }
         }
         return null;
     }
 
-    public String valueOf(long value) {
+    public StringBuilder valueOf(long value) {
 
         long[] ints = new long[getLengthFromPrimitiveNumber(value)];
         StringBuilder stringBuilder = new StringBuilder();
@@ -159,22 +163,22 @@ public final class CustomString {
             stringBuilder.append(anInt);
         }
 
-        return stringBuilder.toString();
+        return stringBuilder;
     }
 
     public boolean equalsIgnoreCase(String anotherString) {
 
-        if (anotherString == null || charContainer.size() != anotherString.length()) {
+        if (anotherString == null || charContainer.length != anotherString.length()) {
             return false;
         }
 
         char[] anotherStringElement = anotherString.toCharArray();
 
 
-        for (int i = 0; i < charContainer.size(); i++) {
-            if (charContainer.get(i) != anotherStringElement[i]) {
-                if ((charContainer.get(i) + 32) != anotherStringElement[i]) {
-                    if (charContainer.get(i) != (anotherStringElement[i] + 32)) {
+        for (int i = 0; i < charContainer.length; i++) {
+            if (charContainer[i] != anotherStringElement[i]) {
+                if ((charContainer[i] + 32) != anotherStringElement[i]) {
+                    if (charContainer[i] != (anotherStringElement[i] + 32)) {
                         return false;
                     }
                 }
@@ -196,7 +200,7 @@ public final class CustomString {
         return length;
     }
 
-    public ArrayList<Character> getCharContainer() {
+    public char[] getCharContainer() {
         return charContainer;
     }
 }
